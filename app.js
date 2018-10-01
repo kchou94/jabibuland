@@ -4,9 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var LocalStrategy = require('passport-local');
+var LocalStrategy = require('passport-local').Strategy;
+require('dotenv').config();
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -28,6 +30,32 @@ if (process.env.NODE_ENV != 'production'){
     console.log('CONNECTED to MongoDB');
   });
 }
+
+// passport setup
+app.use(session({ secret: process.env.SESSION_SECRET }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done){
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done){
+  User.findById(id, function(err, user){
+    done(err, user);
+  });
+});
+
+passport.use(new LocalStrategy(
+  function(username, password, done){
+    User.findOne({ username: username }, function(err, user){
+      if(err){ return done(err); }
+      if(!user){ return done(null, false, { message: 'Incorrect username.' }); }
+      if(!user.validPassword(password)) { return done(null, false, { message: 'Incorrect password.' }); }
+      return done(null, user);
+    });
+  }
+));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
