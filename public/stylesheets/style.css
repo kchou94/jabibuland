@@ -7,6 +7,10 @@ a {
   color: rgb(226, 224, 86);
 }
 
+small {
+  font-size: 0.75em;
+}
+
 main {
   text-align: center;
 }
