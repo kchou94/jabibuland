@@ -1,28 +1,35 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var mongoose = require('mongoose');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 require('dotenv').config();
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const app = express();
 
-var app = express();
+// require models
+const User = require('./models/User');
+
+// require routes
+const index = require('./routes/index');
+const users = require('./routes/users');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // mongoose setup
-var mongoDB = 'mongodb://localhost/jabibuland';
-mongoose.connect(mongoDB);
-var db = mongoose.connection;
+const mongoDB = 'mongodb://localhost:27017/jabibuland';
+mongoose.connect(mongoDB, {
+  useNewUrlParser: true,
+  autoReconnect: true
+});
+const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 if (process.env.NODE_ENV != 'production'){
@@ -31,31 +38,18 @@ if (process.env.NODE_ENV != 'production'){
   });
 }
 
-// passport setup
-app.use(session({ secret: process.env.SESSION_SECRET }));
+// passport setup https://github.com/saintedlama/passport-local-mongoose
+app.use(session({ 
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false }
+));
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function(user, done){
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done){
-  User.findById(id, function(err, user){
-    done(err, user);
-  });
-});
-
-passport.use(new LocalStrategy(
-  function(username, password, done){
-    User.findOne({ username: username }, function(err, user){
-      if(err){ return done(err); }
-      if(!user){ return done(null, false, { message: 'Incorrect username.' }); }
-      if(!user.validPassword(password)) { return done(null, false, { message: 'Incorrect password.' }); }
-      return done(null, user);
-    });
-  }
-));
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
