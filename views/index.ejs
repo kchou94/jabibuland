@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-  <form action="/login" method="POST">
-    <label>Username <input type="text" name="username"></label>
-    <label>Password <input type="password" name="password"></label>
-    <input type="submit" value="Log In">
-  </form>
+	<head>
+		<title>Jabibuland</title>
+		<link rel='stylesheet' href='/stylesheets/style.css'>
+	</head>
+	<body>
+		<main>
+			<h1>Jabibuland</h1>
+			<p>The secrets of Jabibuland are yet to be unveiled...</p>
+		</main>
+		<footer>
+			<% if(currentUser){ %>
+				<%= currentUser.username %> is logged in!
+				<a href="/logout">Logout</a>
+			<% } else { %>
+				<a href="/login">Login</a>
+			<% } %>
+		</footer>
+	</body>
 </html>
