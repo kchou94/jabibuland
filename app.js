@@ -23,19 +23,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // mongoose setup
-const mongoDB = 'mongodb://localhost:27017/jabibuland';
-mongoose.connect(mongoDB, {
-  useNewUrlParser: true,
-  autoReconnect: true
-});
-const db = mongoose.connection;
+// const mongoDB = 'mongodb://localhost:27017/jabibuland';
+// mongoose.connect(mongoDB, {
+//   useNewUrlParser: true,
+//   autoReconnect: true
+// });
+// const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'MongoDB connection error: '));
-if (process.env.NODE_ENV != 'production'){
-  db.once('open', function(){
-    console.log('CONNECTED to MongoDB');
-  });
-}
+// db.on('error', console.error.bind(console, 'MongoDB connection error: '));
+// if (process.env.NODE_ENV != 'production'){
+//   db.once('open', function(){
+//     console.log('CONNECTED to MongoDB');
+//   });
+// }
 
 // passport setup https://github.com/saintedlama/passport-local-mongoose
 app.use(session({ 
