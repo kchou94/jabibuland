@@ -5,13 +5,13 @@ const router = express.Router();
 
 // HOME
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express', });
+	res.render('index', { title: 'Home', });
 });
 
 // USER AUTHENTICATION
 
 router.get('/register', function(req, res){
-	res.render('register', { title: 'register' });
+	res.render('register', { title: 'Register' });
 });
 
 router.post('/register', function(req, res, next){
@@ -26,7 +26,7 @@ router.get('/success', function(req, res){
 });
 
 router.get('/login', function(req, res){
-	res.render('login', { title: 'login' });
+	res.render('login', { title: 'Login' });
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res){

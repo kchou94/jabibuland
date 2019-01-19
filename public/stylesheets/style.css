@@ -1,6 +1,18 @@
+/* Variables */
+
+:root {
+  --font-color: rgb(240, 235, 209);
+}
+
+/* Universal */
+
 html {
   background: #000;
-  color: rgb(240, 235, 209);
+  color: var(--font-color);
+}
+
+small {
+  font-size: 0.75em;
 }
 
 a {
@@ -16,6 +28,13 @@ footer {
   text-align: center;
 }
 
-small {
-  font-size: 0.75em;
+/* Infoboxes */
+
+.infobox {
+  border: 1px var(--font-color) solid;
+  padding: 0.5em;
+}
+
+.infobox h1 {
+  font-size: 1.3 em;
 }

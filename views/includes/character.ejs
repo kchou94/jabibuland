@@ -1,0 +1,9 @@
+<aside class="infobox">
+    <h1>Character</h1>
+    <% if(character) { %>
+        <p>Name: <%= character.info.name.full %></p>
+    <% } else { %>
+        <p>You don't have a character yet!</p>
+        <p><a href='character/new'>Create a character!</a></p>
+    <% } %>
+</div>

@@ -17,6 +17,7 @@ const User = require('./models/User');
 
 // require routes
 const index = require('./routes/index');
+const character = require('./routes/character');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -66,6 +67,7 @@ app.use(function(req, res, next){
 });
 
 app.use('/', index);
+app.use('/character/', character);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

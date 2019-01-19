@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Jabibuland</title>
-		<link rel='stylesheet' href='/stylesheets/style.css'>
-	</head>
-	<body>
+<%- include('includes/header'); %>		
 		<main>
 			<h1>Jabibuland</h1>
-			<p>The secrets of Jabibuland are yet to be unveiled...</p>
-			<small>Look Madre I'm on the Internet!</small>
+			<% if(currentUser){ %>
+				<p>Welcome, <%= currentUser.username %>.</p>
+				<%- include('includes/character', {character: currentUser.character}); %>
+			<% } else { %>
+				<p>The secrets of Jabibuland are yet to be unveiled...</p>
+				<small>Look Madre I'm on the Internet!</small>
+			<% } %>
 		</main>
 		<footer>
 			<% if(currentUser){ %>
