@@ -1,4 +1,223 @@
 <%- include('../includes/header') %>
         <h1>Create a character!</h1>
+        <p>Welcome to Jabibuland.  Before starting, you must create a character.</p>
+        <form action="/character" method="POST">
+            <h2>
+                Basic Information
+            </h2>
+                <label for="first-name">First Name</label>
+                    <input id="first-name" name="first-name" type="text">
+                <label for="last-name">Last Name</label>
+                    <input id="last-name" name="last-name" type="text">
+                <label for="nickname">Nickname (This may be left blank)</label>
+                    <input id="nickname" name="nickname" type="text">
+                <div>
+                    <h3>Character's Sex</h3>
+                    <label for="male">Male</label>
+                        <input id="male" name="sex" value="male" type="radio">
+                    <label for="male">Female</label>
+                        <input id="female" name="sex" value="female" type="radio">
+                </div>
+            <h2>Background</h2>
+                <h3>Childhood</h3>
+                <p>How did you spend your early years?</p>
+                    <label for="childhood-home">Childhood Home</label>
+                        <select id="childhood-home" name="childhood-home">
+                            <option disabled selected>Please select an option</option>
+                            <option value="planetside">Planetside</option>
+                            <option value="genship">Generation Ship</option>
+                        </select>
+                        <p id="childhood-home-description">Please select an option to view description.</p>
+                    <label for="childhood-background">Childhood Background</label>
+                        <select id="childhood-background" name="childhood-background">
+                            <option disabled selected>Please select a home locale first</option>
+                        </select>
+                        <p id="childhood-background-description">Please select an option to view description.</p>
+                <h3>Adulthood</h3>
+                    <p>How did you spend your adulthood until now?</p>
+                    <label for="adulthood-background">Adulthood Background</label>
+                        <select id="adulthood-background" name="adulthood-background">
+                            <option disabled selected>Please select an option</option>
+                            <option value="cryosleep">Cryosleep</option>
+                            <option value="greenhouse-tender">Greenhouse Tender</option>
+                            <option value="peacekeeper">Peacekeeper</option>
+                            <option value="aft-ganger">Aft Ganger</option>
+                            <option value="science-officer">Science Officer</option>
+                            <option value="biomechist">Biomechist</option>
+                            <option value="coreworker">Coreworker</option>
+                        </select>
+                        <p id="adulthood-background-description">Please select an option to view description.</p>
+        </form>
+        <script>
+            let childhoodHome = document.getElementById('childhood-home');
+            let childhoodHomeDesc = document.getElementById('childhood-home-description');
+            let childhoodHomeSelectedValue;
+            let childhoodBackground = document.getElementById('childhood-background');
+            let childhoodBackgroundDesc = document.getElementById('childhood-background-description');
+            let adulthoodBackground = document.getElementById('adulthood-background');
+            let adulthoodBackgroundDesc = document.getElementById('adulthood-background-description');
+
+            childhoodHome.addEventListener('change', () => {
+                childhoodHomeSelectedValue = childhoodHome.selectedOptions[0].value;
+                childhoodBackgroundResetter();
+                childhoodHomeDescSetter();
+                childhoodBackgroundOptionSetter();
+                childhoodBackgroundDescSetter();
+            });
+
+            childhoodBackground.addEventListener('change', () => {
+                childhoodBackgroundDescSetter();
+            });
+
+            adulthoodBackground.addEventListener('change', () => {
+                adulthoodBackgroundDescSetter();
+            });         
+
+            const childhoodHomeDescArr = [
+                {
+                    key: 'planetside',
+                    desc: 'You were born and raised on home turf before the Sequestering - though many would come and go throughout the centuries in orbit, you are amongst the populace who witnessed life before the new era.'
+                },
+                {
+                    key: 'genship',
+                    desc: 'During the long wait of the Sequestering, you were one of the countless children to be born upon the Genships, destined to carry the torch of humanity back to whence it came.'
+                }
+            ];
+
+            const childhoodBackgroundOptionArr = [
+                {
+                    home: 'planetside',
+                    options: [
+                        {
+                            value: 'farmhand',
+                            text: 'Farmhand',
+                            desc: 'As humanity became overcome by the onslaught of biomechs, rural communities with smaller populations were slower to fall.  You spent much of your childhood on a farm, learning the ins and outs of subsistence living.'
+                        },
+                        {
+                            value: 'hunting',
+                            text: 'Hunting',
+                            desc: 'You learned how to handle a firearm at a young age, hunting for untainted meat to help feed the community.'
+                        },
+                        {
+                            value: 'richkid',
+                            text: 'Rich Kid',
+                            desc: 'As the world crumbled, your rich family continued its extravagant lifestyle under the protection of a fortified estate and hired guns.  You were taught the importance of charisma and economics.'
+                        },
+                        {
+                            value: 'slumchild',
+                            text: 'Slum Child',
+                            desc: "A child of a city-bastion's slums, you spent your childhood fighting and pilfering for food and self-preservation.  You know there's safety amongst the shadows."
+                        },
+                    ]
+                },
+                {
+                    home: 'genship',
+                    options: [
+                        {
+                            value: 'screenie',
+                            text: 'Screenie',
+                            desc: "You spent uncountable hours with your eyes glued to the computer screens of one of the Genship's libraries.  Though you didn't spend much time with other children, you absorbed a wealth of knowledge."
+                        },
+                        {
+                            value: 'aft-rat',
+                            text: 'Aft Rat',
+                            desc: "Growing up in the overpopulated and neglected rear sections, you scrounged and fought for ration scraps, stealing from gangs and Peacekeepers alike."
+                        },
+                        {
+                            value: 'biomechist-cult-child',
+                            text: 'Biomechist Cult Child',
+                            desc: "Despite the devastation wrought upon mankind by the biomechs, in the centuries since, many began to worship the biomechs.  You were born amongst one such cult, forced to receive crude mechanical augmentations and learn their ways."
+                        },
+                        {
+                            value: 'coreworker-child',
+                            text: 'Coreworker Child',
+                            desc: "In the Genship society, child labor became an indispensible resource.  As a coreworker, you worked in the industrial core of the ship in exchange for living space and a bare subsistence of food.  However, years spent without artificial gravity made you weak."
+                        },
+                        {
+                            value: 'cryochild',
+                            text: 'Cryochild',
+                            desc: "You were either lucky or wealthy enough to be chosen for cryosleep at a very early age.  Centuries passed and countless souls came and went as you slumbered."
+                        },
+                    ]
+                }
+            ];
+
+            const adulthoodBackgroundDescArr = [
+                {
+                    key: 'cryosleep',
+                    desc: "Through luck or wealth, you secured a rare position amongst the legion of sleeping souls."
+                },
+                {
+                    key: 'greenhouse-tender',
+                    desc: "You tended to plants in the mammoth ring of greenery that wrapped around the ship's circumference."
+                },
+                {
+                    key: 'peacekeeper',
+                    desc: "As a member of the ship's Peacekeepers, you hunted down gangbangers, cultists, and petty criminals."
+                },
+                {
+                    key: 'aft-ganger',
+                    desc: "A member of one of the many gangs that vied for territory in the aft sections."
+                },
+                {
+                    key: 'science-officer',
+                    desc: "The shiprunners saw promise in your intellect, recruiting you as a science officer to aid with matters such as navigation and engineering."
+                },
+                {
+                    key: 'biomechist',
+                    desc: "It's no surprise that cults spring up when despair runs high.  As a worshipper of biomechs, you and your fellow cultists sought to revive the golden age of biomechs, often resorting to unorthadox practices."
+                },
+                {
+                    key: 'coreworker',
+                    desc: "You worked and slept within the zero-gravity core of the ship."
+                }
+            ];
+
+            function childhoodHomeDescSetter(){
+                childhoodHomeDescArr.forEach( e => {
+                    if(e.key == childhoodHome.selectedOptions[0].value){
+                        childhoodHomeDesc.textContent = e.desc;
+                    }
+                });
+            };
+
+            function childhoodBackgroundOptionSetter(){
+                childhoodBackgroundOptionArr.forEach( cat => {
+                    if(childhoodHome.selectedOptions[0].value == cat.home){ 
+                        cat.options.forEach ( o => {
+                            let opt = document.createElement('option');
+                            opt.text = o.text;
+                            opt.value = o.value;
+                            childhoodBackground.add(opt);
+                        });
+                    }
+                });
+            };
+
+            function childhoodBackgroundDescSetter(){
+                childhoodBackgroundOptionArr.forEach( cat => {
+                    if(cat.home == childhoodHomeSelectedValue){
+                        cat.options.forEach( o => {
+                            if(o.value == childhoodBackground.selectedOptions[0].value){
+                                childhoodBackgroundDesc.textContent = o.desc;
+                            }
+                        });
+                    }
+                });
+            }
+
+            function childhoodBackgroundResetter(){
+                childhoodBackground.options.length = 0;
+            };
+
+            function adulthoodBackgroundDescSetter(){
+                adulthoodBackgroundDescArr.forEach( e => {
+                    if(e.key == adulthoodBackground.selectedOptions[0].value){
+                        adulthoodBackgroundDesc.textContent = e.desc;
+                    }
+                });
+            };
+
+        </script>
     </body>
 </html>
