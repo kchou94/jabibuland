@@ -10,7 +10,7 @@ var characterSchema = new Schema({
             last: String, // Smith
             suffix: String // II
         },
-        gender: String,
+        sex: String,
         age: Number,
         birthday: {
             month: Number,

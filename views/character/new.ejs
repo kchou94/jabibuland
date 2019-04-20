@@ -2,60 +2,133 @@
         <h1>Create a character!</h1>
         <p>Welcome to Jabibuland.  Before starting, you must create a character.</p>
         <form action="/character" method="POST">
-            <h2>
-                Basic Information
-            </h2>
-                <label for="first-name">First Name</label>
+            <section>
+                <h2>
+                    Basic Information
+                </h2>
+                <label>First Name
                     <input id="first-name" name="first-name" type="text">
-                <label for="last-name">Last Name</label>
+                </label>                
+                <label>Last Name
                     <input id="last-name" name="last-name" type="text">
-                <label for="nickname">Nickname (This may be left blank)</label>
+                </label>                
+                <label>Nickname (This may be left blank)
                     <input id="nickname" name="nickname" type="text">
+                </label>
                 <div>
                     <h3>Character's Sex</h3>
-                    <label for="male">Male</label>
+                    <label>Male
                         <input id="male" name="sex" value="male" type="radio">
-                    <label for="male">Female</label>
+                    </label>                    
+                    <label>Female
                         <input id="female" name="sex" value="female" type="radio">
+                    </label>                    
                 </div>
-            <h2>Background</h2>
+                <div>
+                    <h3>Birthday</h3>
+                    <label>Month
+                        <select id="birth-month">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </label>
+                    <label>Day</label>
+                        <select id="birth-day">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>24</option>
+                            <option>25</option>
+                            <option>26</option>
+                            <option>27</option>
+                            <option>28</option>
+                            <option>29</option>
+                            <option>30</option>
+                            <option>31</option>
+                        </select>
+                </div>
+            </section>
+            <section>
+                <h2>Background</h2>
                 <h3>Childhood</h3>
                 <p>How did you spend your early years?</p>
-                    <label for="childhood-home">Childhood Home</label>
+                    <label>Childhood Home
                         <select id="childhood-home" name="childhood-home">
                             <option disabled selected>Please select an option</option>
                             <option value="planetside">Planetside</option>
                             <option value="genship">Generation Ship</option>
                         </select>
-                        <p id="childhood-home-description">Please select an option to view description.</p>
-                    <label for="childhood-background">Childhood Background</label>
+                    </label>
+                    <p id="childhood-home-description">Please select an option to view description.</p>
+                    <label>Childhood Background
                         <select id="childhood-background" name="childhood-background">
                             <option disabled selected>Please select a home locale first</option>
                         </select>
-                        <p id="childhood-background-description">Please select an option to view description.</p>
+                    </label>                    
+                    <p id="childhood-background-description">Please select an option to view description.</p>
                 <h3>Adulthood</h3>
-                    <p>How did you spend your adulthood until now?</p>
-                    <label for="adulthood-background">Adulthood Background</label>
-                        <select id="adulthood-background" name="adulthood-background">
-                            <option disabled selected>Please select an option</option>
-                            <option value="cryosleep">Cryosleep</option>
-                            <option value="greenhouse-tender">Greenhouse Tender</option>
-                            <option value="peacekeeper">Peacekeeper</option>
-                            <option value="aft-ganger">Aft Ganger</option>
-                            <option value="science-officer">Science Officer</option>
-                            <option value="biomechist">Biomechist</option>
-                            <option value="coreworker">Coreworker</option>
-                        </select>
-                        <p id="adulthood-background-description">Please select an option to view description.</p>
+                <p>How did you spend your adulthood until now?</p>
+                <label>Adulthood Background
+                    <select id="adulthood-background" name="adulthood-background">
+                        <option disabled selected>Please select an option</option>
+                        <option value="cryosleep">Cryosleep</option>
+                        <option value="greenhouse-tender">Greenhouse Tender</option>
+                        <option value="peacekeeper">Peacekeeper</option>
+                        <option value="aft-ganger">Aft Ganger</option>
+                        <option value="science-officer">Science Officer</option>
+                        <option value="biomechist">Biomechist</option>
+                        <option value="coreworker">Coreworker</option>
+                    </select>
+                </label>                
+                <p id="adulthood-background-description">Please select an option to view description.</p>
+            </section>
         </form>
         <script>
-            let childhoodHome = document.getElementById('childhood-home');
-            let childhoodHomeDesc = document.getElementById('childhood-home-description');
-            let childhoodHomeSelectedValue;
-            let childhoodBackground = document.getElementById('childhood-background');
-            let childhoodBackgroundDesc = document.getElementById('childhood-background-description');
-            let adulthoodBackground = document.getElementById('adulthood-background');
-            let adulthoodBackgroundDesc = document.getElementById('adulthood-background-description');
+            const birthMonth = document.getElementById('birth-month');
+            var birthMonthSelectedValue;
+            const birthDay = document.getElementById('birth-day');
+            const childhoodHome = document.getElementById('childhood-home');
+            const childhoodHomeDesc = document.getElementById('childhood-home-description');
+            var childhoodHomeSelectedValue;
+            const childhoodBackground = document.getElementById('childhood-background');
+            const childhoodBackgroundDesc = document.getElementById('childhood-background-description');
+            const adulthoodBackground = document.getElementById('adulthood-background');
+            const adulthoodBackgroundDesc = document.getElementById('adulthood-background-description');
+
+            birthMonth.addEventListener('change', () => {
+                birthDay.options.length = 0; //reset
+                birthDayOptionSetter();
+            });
 
             childhoodHome.addEventListener('change', () => {
                 childhoodHomeSelectedValue = childhoodHome.selectedOptions[0].value;
@@ -71,7 +144,9 @@
 
             adulthoodBackground.addEventListener('change', () => {
                 adulthoodBackgroundDescSetter();
-            });         
+            });
+
+            const months31Days = ['1','3','5','7','8','10','12'];
 
             const childhoodHomeDescArr = [
                 {
@@ -172,6 +247,25 @@
                     desc: "You worked and slept within the zero-gravity core of the ship."
                 }
             ];
+
+            function birthDayOptionSetter(){
+                birthMonthSelectedValue = birthMonth.selectedOptions[0].value;
+                if(birthMonthSelectedValue == '2'){
+                    birthDayOptionCreater(28);
+                } else if(months31Days.includes(birthMonthSelectedValue)){
+                    birthDayOptionCreater(31);
+                } else {
+                    birthDayOptionCreater(30);
+                }
+            }
+
+            function birthDayOptionCreater(maxDays){
+                for(i = 1; i <= maxDays; i++){
+                    let opt = document.createElement('option');
+                    opt.text = i;
+                    birthDay.add(opt);
+                }
+            }
 
             function childhoodHomeDescSetter(){
                 childhoodHomeDescArr.forEach( e => {
